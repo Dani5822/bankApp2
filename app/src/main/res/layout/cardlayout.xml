@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/frame"
+        >
+
+    <ImageButton
+        android:id="@+id/card"
+        style="@style/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="card"
+        android:src="@drawable/card" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
+            android:textSize="40dp"
+            android:textColor="@color/white"
+            android:id="@+id/balance"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="@style/edittext"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:id="@+id/id"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardname"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="25dp"/>
+
+    </FrameLayout>

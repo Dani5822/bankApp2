@@ -1,0 +1,51 @@
+[versions]
+agp = "8.9.1"
+androidxJunit = "1.1.5"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+lifecycleExtensions = "2.2.0"
+loggingInterceptor = "4.9.3"
+material = "1.12.0"
+constraintlayout = "2.2.0"
+lifecycleLivedataKtx = "2.8.7"
+lifecycleViewmodelKtx = "2.8.7"
+materialVersion = "1.9.0"
+mpandroidchart = "v3.1.0"
+navigationFragment = "2.8.5"
+navigationUi = "2.8.5"
+annotation = "1.6.0"
+okhttp = "3.14.0"
+retrofit= "2.9.0"
+activity = "1.10.0"
+swiperefreshlayout = "1.2.0-beta01"
+
+[libraries]
+espresso-core-v351 = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+junit-v115 = { module = "androidx.test.ext:junit", version.ref = "androidxJunit" }
+lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "lifecycleExtensions" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+material-v190 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
+navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+converter-gson={module="com.squareup.retrofit2:converter-gson",version.ref="retrofit"}
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+retrofit={module="com.squareup.retrofit2:retrofit",version.ref="retrofit"}
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+

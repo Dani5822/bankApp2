@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.bankapp2.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.example.bankapp2.ui.cards.CardsFragment"
+        android:label="Számlák"
+        tools:layout="@layout/fragment_cards" />
+
+    <fragment
+        android:id="@+id/cardinfo"
+        android:name="com.example.bankapp2.ui.cardsinfo.cardinfo"
+        android:label="Kártya Részletek"
+        tools:layout="@layout/fragment_cardinfo"/>
+
+    <fragment
+        android:id="@+id/transaction_details"
+        android:name="com.example.bankapp2.ui.transaction_details.transaction_details"
+        android:label="Tranzakzió részletek"
+        tools:layout="@layout/transaction_details" />
+
+    <fragment
+        android:id="@+id/statisticFragment"
+        android:name="com.example.bankapp2.ui.statistic.statisticFragment"
+        android:label="Statisztika"
+        tools:layout="@layout/fragment_statistic" />
+
+    <fragment
+        android:id="@+id/arfolyamok"
+        android:name="com.example.bankapp2.ui.arfolyam.arfolyamok"
+        android:label="Árfolyamok"
+        tools:layout="@layout/fragment_arfolyamok" />
+
+    <fragment
+        android:id="@+id/repetableTransaction"
+        android:name="com.example.bankapp2.ui.repetabletransaction.repetableTransaction"
+        android:label="Ismétlődő tranzakciók"
+        tools:layout="@layout/fragment_repetable_transaction" />
+    <fragment
+        android:id="@+id/repetable_detail"
+        android:name="com.example.bankapp2.ui.repetabletransaction.repetable_detail"
+        android:label="Ismátlődő tranzakció részletek"
+        tools:layout="@layout/fragment_repetable_detail" />
+    <fragment
+        android:id="@+id/arfolyamreszlet"
+        android:name="com.example.bankapp2.ui.arfolyam.arfolyamreszlet"
+        android:label="Árfolyam"
+        tools:layout="@layout/fragment_arfolyamreszlet" />
+</navigation>

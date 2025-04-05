@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.arfolyam.arfolyamreszlet"
+    android:padding="15dp"
+    style="@style/backgroundcolor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/data"
+        android:orientation="vertical"
+        android:layout_marginVertical="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:text="Pénznem: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                style="@style/edittext"
+                android:layout_weight="1"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/currency"
+                android:layout_weight="1"
+                style="@style/edittext"
+                android:textSize="20sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:text="Jelenlegi árfolyam: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                style="@style/edittext"
+                android:layout_weight="1"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/curretrate"
+                android:layout_weight="1"
+                style="@style/edittext"
+                android:textSize="20sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Az elmúlt 15 nap devizaárfolyama:"
+        android:layout_below="@id/data"
+        style="@style/edittext"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/cim"
+        android:layout_marginVertical="10dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="#23265A"
+        android:padding="20dp"
+        android:layout_below="@+id/cim">
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/chart"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

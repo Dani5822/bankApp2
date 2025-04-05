@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/backgroundcolor"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:id="@+id/info"
+        android:layout_weight="7">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/income"
+        android:id="@+id/kep"
+        android:layout_marginRight="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:text="Valami"
+        android:textSize="20sp"
+        style="@style/edittext"
+        android:layout_toRightOf="@+id/kep"
+        />
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+        android:id="@+id/category"
+         android:text="Other"
+         android:textSize="10sp"
+         android:layout_marginTop="10dp"
+         style="@style/edittext"
+         android:layout_below="@+id/name"
+         android:layout_toRightOf="@+id/kep"
+         />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/amount"
+        android:text="1234567HUF"
+        android:layout_toEndOf="@+id/info"
+        android:textSize="20sp"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center_vertical"
+        android:textAlignment="textEnd"/>
+
+
+</LinearLayout>

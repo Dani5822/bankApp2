@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.arfolyam.arfolyam"
+    style="@style/backgroundcolor"
+    android:orientation="horizontal"
+    >
+
+    <RelativeLayout
+        android:id="@+id/oszlop1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/oszlop1back"
+            android:layout_width="wrap_content"
+            android:layout_height="66dp"
+            android:src="@drawable/arfolyambackground" />
+
+        <ImageView
+            android:id="@+id/oszlop1iconbal"
+            style="@style/backgroundcolor"
+            android:layout_width="wrap_content"
+            android:layout_height="66dp"
+            android:layout_alignLeft="@+id/oszlop1back"
+            android:layout_centerVertical="true"
+            android:src="@drawable/up" />
+
+        <RelativeLayout
+            android:id="@+id/oszlop1datalayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/oszlop1iconbal">
+
+            <TextView
+                android:id="@+id/oszlop1currency"
+                style="@style/edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/oszlop1currentrate"
+                style="@style/edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/oszlop1currency" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/oszlop1change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/oszlop1datalayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="7dp"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/oszlop2"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="66dp"
+            android:id="@+id/oszlop2back"
+            android:src="@drawable/arfolyambackground"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="66dp"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/oszlop2back"
+            android:id="@+id/oszlop2iconbal"
+            android:src="@drawable/up"
+            style="@style/backgroundcolor"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/oszlop2iconbal"
+            android:id="@+id/oszlop2datalayout"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/oszlop2currency"
+                style="@style/edittext"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/oszlop2currency"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/oszlop2currentrate"
+                style="@style/edittext"/>
+
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/oszlop2datalayout"
+            android:textSize="12sp"
+            android:layout_marginTop="7dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/oszlop2change"/>
+    </RelativeLayout>
+
+
+
+</LinearLayout>

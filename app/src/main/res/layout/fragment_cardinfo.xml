@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/backgroundcolor"
+    android:padding="15dp"
+    android:id="@+id/main">
+
+
+    <include layout="@layout/cardlayout"
+        android:id="@+id/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card"
+        android:layout_marginTop="10dp"
+        android:id="@+id/currency_layout">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Currency:"
+            style="@style/edittext"
+            android:textSize="20sp"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/currency"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Felhasználók:"
+        android:id="@+id/cim"
+        style="@style/edittext"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/currency_layout"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/addUserButton"
+        android:text="Hozzáad"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/currency_layout"
+        />
+
+   <TableLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/table"
+       android:layout_marginTop="15dp"
+       android:layout_below="@+id/cim"
+       >
+       <TableRow>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Name"
+               style="@style/edittext"
+               android:textSize="15sp"
+               android:layout_weight="2"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Email"
+               android:textSize="15sp"
+               style="@style/edittext"
+               android:layout_weight="2"/>
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text=""
+
+               android:layout_weight="1"/>
+       </TableRow>
+   </TableLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/delete"
+        android:text="Törlés"
+        android:textSize="20sp"
+        android:backgroundTint="@color/red"
+        android:layout_below="@+id/table"
+        android:layout_marginTop="20dp"/>
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="64dp"
+        android:visibility="gone" />
+
+</RelativeLayout>

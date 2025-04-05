@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".regist"
+    android:gravity="center"
+    style="@style/backgroundcolor"
+    android:padding="15dp"
+    >
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/regfirstname"
+        android:textSize="20sp"
+        android:inputType="textPersonName"
+        android:layout_margin="5dp"
+        android:hint="First Name"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reglastname"
+        android:textSize="20sp"
+        android:inputType="textPersonName"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/regfirstname"
+        android:hint="Last Name"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/regemail"
+        android:textSize="20sp"
+        android:inputType="textEmailAddress"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/reglastname"
+        android:hint="Email"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/regpassword"
+        android:textSize="20sp"
+        android:inputType="textPassword"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/regemail"
+        android:hint="Password"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/register"
+        android:textSize="20sp"
+        android:text="regist"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/regpassword"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/back"
+        android:textSize="20sp"
+        android:text="back"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/regpassword"
+        android:layout_toRightOf="@+id/register"/>
+</RelativeLayout>
