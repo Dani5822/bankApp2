@@ -11,45 +11,85 @@
     android:padding="15dp"
     >
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/regfirstname"
-        android:textSize="20sp"
-        android:inputType="textPersonName"
-        android:layout_margin="5dp"
-        android:hint="First Name"
-        />
+        android:paddingHorizontal="15dp"
+        android:selectAllOnFocus="true"
+        android:layout_alignParentTop="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:errorEnabled="true"
+        android:hint="First Name">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            style="@style/edittext"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reglastname"
-        android:textSize="20sp"
-        android:inputType="textPersonName"
-        android:layout_margin="5dp"
-        android:layout_below="@+id/regfirstname"
-        android:hint="Last Name"/>
+        android:paddingHorizontal="15dp"
+        android:layout_below="@id/regfirstname"
+        android:selectAllOnFocus="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:errorEnabled="true"
+        android:hint="Last Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            style="@style/edittext"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/regemail"
-        android:textSize="20sp"
-        android:inputType="textEmailAddress"
-        android:layout_margin="5dp"
-        android:layout_below="@+id/reglastname"
-        android:hint="Email"/>
-    <EditText
+        android:paddingHorizontal="15dp"
+        android:layout_below="@id/reglastname"
+        android:selectAllOnFocus="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:errorEnabled="true"
+        android:hint="Email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            style="@style/edittext"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/regpassword"
-        android:textSize="20sp"
-        android:inputType="textPassword"
-        android:layout_margin="5dp"
-        android:layout_below="@+id/regemail"
-        android:hint="Password"/>
+        android:paddingHorizontal="15dp"
+        android:layout_below="@id/regemail"
+        android:selectAllOnFocus="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:endIconMode="password_toggle"
+        app:errorEnabled="true"
+        android:hint="Password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            style="@style/edittext"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:layout_width="wrap_content"

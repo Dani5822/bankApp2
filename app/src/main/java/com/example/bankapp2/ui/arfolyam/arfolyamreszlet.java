@@ -124,7 +124,7 @@ public class arfolyamreszlet extends Fragment {
         for (int i = 0; i < currencyList.size(); i++) {
             Float value = currencyList.get(i).getEur().get("huf").floatValue();
             if (value != null) {
-                var x = i + 1 + "f";
+                String x = i + 1 + "f";
                 entries.add(new Entry(parseFloat(x), value));
             } else {
                 System.out.println("Error: currency value is null for date " + currencyList.get(i).getDate());

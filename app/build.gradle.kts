@@ -1,8 +1,12 @@
+
 import org.gradle.api.tasks.javadoc.Javadoc
 import org.gradle.kotlin.dsl.register
+import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     alias(libs.plugins.android.application)
+    kotlin("android") version "1.8.22"
+    id("org.jetbrains.dokka")
 }
 
 android {
@@ -35,6 +39,28 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+
+
+}
+
+tasks.findByName("dokkaHtml") ?: tasks.register<DokkaTask>("dokkaHtml") {
+    outputDirectory.set(layout.buildDirectory.dir("javadoc"))
+    dokkaSourceSets {
+        register("main") {
+            displayName.set("Main")
+            sourceRoots.from(file("src/main/java"))
+            platform.set(org.jetbrains.dokka.Platform.jvm)
+            noAndroidSdkLink.set(false)
+        }
+    }
+}
+
+tasks.findByName("javadoc") ?: tasks.register("javadoc", Javadoc::class) {
+    val mainSourceSet = android.sourceSets.getByName("main")
+    source = project.files(mainSourceSet.java.srcDirs).asFileTree
+    classpath = files(android.bootClasspath) + files(mainSourceSet.java.srcDirs)
+    isFailOnError=false
 }
 
 

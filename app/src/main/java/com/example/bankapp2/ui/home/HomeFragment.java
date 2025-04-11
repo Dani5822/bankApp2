@@ -246,13 +246,11 @@ public class HomeFragment extends Fragment {
             apiService.getallexbycardid(card.getId(), ((global) getActivity().getApplication()).getAccess_token()).enqueue(new Callback<Expense[]>() {
                 @Override
                 public void onResponse(Call<Expense[]> call, Response<Expense[]> response) {
+                    expenses.clear();
                     if (response.isSuccessful() && response.body() != null) {
                         Expense[] expenseslocal = response.body();
-                        expenses.clear();
                         expenses.addAll(Arrays.asList(expenseslocal));
-
                     } else {
-                        expenses.clear();
                         System.out.println("Error fetching expenses: " + response.message());
                     }
                     updatetransaction();
@@ -262,18 +260,17 @@ public class HomeFragment extends Fragment {
                 public void onFailure(Call<Expense[]> call, Throwable t) {
                     expenses.clear();
                     System.out.println("Error fetching expenses: " + t.getMessage());
+                    updatetransaction();
                 }
             });
             apiService.getallinbycardid(card.getId(), ((global) getActivity().getApplication()).getAccess_token()).enqueue(new Callback<Income[]>() {
                 @Override
                 public void onResponse(Call<Income[]> call, Response<Income[]> response) {
+                    incomes.clear();
                     if (response.isSuccessful() && response.body() != null) {
                         Income[] incomeslocal = response.body();
-                        incomes.clear();
                         incomes.addAll(Arrays.stream(incomeslocal).collect(Collectors.toList()));
-
                     } else {
-                        incomes.clear();
                         System.out.println("Error fetching incomes: " + response.message());
                     }
                     updatetransaction();
@@ -283,6 +280,7 @@ public class HomeFragment extends Fragment {
                 public void onFailure(Call<Income[]> call, Throwable t) {
                     incomes.clear();
                     System.out.println("Error fetching incomes: " + t.getMessage());
+                    updatetransaction();
                 }
             });
         }

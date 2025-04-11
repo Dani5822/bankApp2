@@ -165,10 +165,16 @@ public class Transactions extends AppCompatActivity {
             if (binding.radioGroup.getCheckedRadioButtonId() == -1) {
                 binding.error.setText("Please select a type");
                 binding.loading.setVisibility(View.GONE);
+                return;
             } else if (binding.total.getText().toString().isEmpty()) {
                 binding.error.setText("Please enter an amount");
                 binding.loading.setVisibility(View.GONE);
-            } else {
+                return;
+            } else if (Integer.parseInt(binding.total.getText().toString())<=0){
+                binding.error.setText("Please enter a valid amount");
+                binding.loading.setVisibility(View.GONE);
+                return;
+            }else {
                 binding.error.setText("");
             }
             RetrofitApiService apiService = RetrofitClient.getInstance().create(RetrofitApiService.class);

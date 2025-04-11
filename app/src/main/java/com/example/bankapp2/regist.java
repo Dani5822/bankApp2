@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,6 +18,12 @@ import com.example.bankapp2.data.connect.RetrofitApiService;
 import com.example.bankapp2.data.connect.RetrofitClient;
 import com.example.bankapp2.data.model.LoggedInUser;
 import com.example.bankapp2.ui.login.LoginActivity;
+import com.google.android.material.textfield.TextInputLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +35,7 @@ import retrofit2.Response;
 public class regist extends AppCompatActivity {
     EditText password, lastName, firstName, email;
     Button register, back;
+
 
     /**
      * Called when the activity is starting. This is where most initialization should go.
@@ -53,7 +61,6 @@ public class regist extends AppCompatActivity {
                 String last = lastName.getText().toString();
                 String first = firstName.getText().toString();
                 String mail = email.getText().toString();
-                System.out.println(pass);
                 if (pass.isEmpty()) {
                     password.setError("Password is required");
                     password.requestFocus();
@@ -74,17 +81,45 @@ public class regist extends AppCompatActivity {
                     email.requestFocus();
                     return;
                 }
+                if(!mail.matches("[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+")){
+                    email.setError("Email is not valid");
+                    email.requestFocus();
+                    return;
+                }
                 RetrofitApiService apiService = RetrofitClient.getInstance().create(RetrofitApiService.class);
-                System.out.println(first+" "+last+" "+mail+" "+pass);
                 Call<LoggedInUser> call = apiService.registerUser(first, last, mail, pass);
                 call.enqueue(new Callback<LoggedInUser>() {
                     @Override
                     public void onResponse(Call<LoggedInUser> call, Response<LoggedInUser> response) {
-                        System.out.println(response.body());
-                        Intent intent = new Intent(regist.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
+                        if(response.isSuccessful()){
+                            Intent intent = new Intent(regist.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            try {
+                                if (response.code() == 409) {
+                                    email.setError("Email already exists");
+                                    email.requestFocus();
+                                    return;
+                                }
+                                String errorBody = response.errorBody().string();
+                                JSONObject errorJson = new JSONObject(errorBody);
+                                String errorMessage = errorJson.getJSONArray("message").getString(0);
+
+                                if (errorMessage.equals("password is not strong enough")) {
+                                    password.setError("Password is not strong enough");
+                                    password.requestFocus();
+                                } else {
+                                    System.out.println(errorMessage);
+                                }
+                            } catch (IOException | JSONException e) {
+                                    System.out.println("Error: "+response.message());
+                                System.out.println("Error: "+e.getMessage());
+
+                            }
+
+                        }
+                        }
 
                     @Override
                     public void onFailure(Call<LoggedInUser> call, Throwable t) {
@@ -110,10 +145,10 @@ public class regist extends AppCompatActivity {
      * Initializes the views and buttons in the registration activity.
      */
     public void init() {
-        password = findViewById(R.id.regpassword);
-        lastName = findViewById(R.id.reglastname);
-        firstName = findViewById(R.id.regfirstname);
-        email = findViewById(R.id.regemail);
+        password = ((TextInputLayout)findViewById(R.id.regpassword)).getEditText();
+        lastName = ((TextInputLayout)findViewById(R.id.reglastname)).getEditText();
+        firstName = ((TextInputLayout)findViewById(R.id.regfirstname)).getEditText();
+        email = ((TextInputLayout)findViewById(R.id.regemail)).getEditText();
         register = findViewById(R.id.register);
         back = findViewById(R.id.back);
     }

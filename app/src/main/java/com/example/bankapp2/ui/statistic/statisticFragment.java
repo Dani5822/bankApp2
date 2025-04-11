@@ -150,7 +150,7 @@ public class statisticFragment extends Fragment implements OnChartValueSelectedL
         ArrayList<PieEntry> entries1 = new ArrayList<>();
 
         for (Map.Entry<String, ArrayList<Transaction>> entry : categorys.entrySet()) {
-            var sum = sum(entry.getValue());
+            double sum = sum(entry.getValue());
             PieEntry entry1 = new PieEntry((float) sum, entry.getKey());
             entries1.add(entry1);
         }

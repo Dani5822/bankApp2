@@ -85,8 +85,8 @@ public class arfolyamok extends Fragment {
         @Override
         protected void onPostExecute(List<List<currency>> result) {
             super.onPostExecute(result);
-            var oszlop1 = result.subList(0, result.size() / 2);
-            var oszlop2 = result.subList(result.size() / 2, result.size());
+            List<List<currency>> oszlop1 = result.subList(0, result.size() / 2);
+            List<List<currency>> oszlop2 = result.subList(result.size() / 2, result.size());
             arfolyam adapter = new arfolyam(getContext(), oszlop1, oszlop2);
             binding.currency.setAdapter(adapter);
             binding.loading.setVisibility(View.GONE);

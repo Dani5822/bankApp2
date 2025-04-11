@@ -82,7 +82,7 @@ public class repetableTransaction extends Fragment {
      */
     private void updateUI() {
         if (repeatableTransactions != null) {
-            var adapter = new repetableTransactionAdapter(Arrays.asList(repeatableTransactions), getContext(), token);
+            repetableTransactionAdapter adapter = new repetableTransactionAdapter(Arrays.asList(repeatableTransactions), getContext(), token);
             binding.repetableList.setAdapter(adapter);
         }
     }

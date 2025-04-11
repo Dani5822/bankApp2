@@ -94,7 +94,7 @@ public class arfolyam extends BaseAdapter {
         change.setText(String.format("%.2f", pastcurrency) + " (" + String.format("%.2f", szazalek) + "%)");
         icon.setImageResource(szazalek >= 0 ? R.drawable.up : R.drawable.down);
 
-        var x = view.findViewById(R.id.oszlop1);
+        View x = view.findViewById(R.id.oszlop1);
         x.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +116,7 @@ public class arfolyam extends BaseAdapter {
         change2.setText(String.format("%.2f", pastcurrency2) + " (" + String.format("%.2f", szazalek2) + "%)");
         icon2.setImageResource(szazalek2 >= 0 ? R.drawable.up : R.drawable.down);
 
-        var y = view.findViewById(R.id.oszlop2);
+        View y = view.findViewById(R.id.oszlop2);
         y.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -2,3 +2,16 @@
 plugins {
     alias(libs.plugins.android.application) apply false
 }
+
+
+
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+        dependencies {
+            classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.9.0")
+        }
+    }
+
+

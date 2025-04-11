@@ -66,6 +66,17 @@ public class popUpAddUser extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (email.getText().toString().isEmpty()) {
+                    email.setError("Email is required");
+                    email.requestFocus();
+                    return;
+                }
+                if(!email.getText().toString().matches("[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+")){
+                    email.setError("Email is not valid");
+                    email.requestFocus();
+                    return;
+                }
                 RetrofitApiService apiService = getInstance().create(RetrofitApiService.class);
                 String accessToken = ((global) getApplication()).getAccess_token();
                 apiService.updateCardUserList(accessToken, cardid, email.getText().toString()).enqueue(new Callback<Card>() {
