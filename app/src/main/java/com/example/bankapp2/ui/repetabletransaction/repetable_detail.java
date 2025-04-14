@@ -193,8 +193,8 @@ public class repetable_detail extends Fragment {
             public void onClick(View view) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Törlés");
-                builder.setMessage("Biztosan törölni szeretnéd? (A költségek megmaradnak)");
+                builder.setTitle("Leállítás");
+                builder.setMessage("Biztosan le szeretnéd állítani? (A költségek megmaradnak)");
                 builder.setPositiveButton("Igen", (dialog, which) -> {
                     RetrofitApiService apiService= getInstance().create(RetrofitApiService.class);
                     apiService.stopRepeatableTransaction(repeatableTransactionId, token).enqueue(new retrofit2.Callback<RepeatableTransaction>() {
