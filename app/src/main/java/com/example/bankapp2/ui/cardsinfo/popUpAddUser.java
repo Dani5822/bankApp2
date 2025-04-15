@@ -1,14 +1,13 @@
 package com.example.bankapp2.ui.cardsinfo;
 
 
-
-
 import static com.example.bankapp2.data.connect.RetrofitClient.getInstance;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 
 import com.example.bankapp2.R;
 import com.example.bankapp2.data.connect.RetrofitApiService;
@@ -55,45 +53,51 @@ public class popUpAddUser extends AppCompatActivity {
 
         init();
 
-        DisplayMetrics dm=new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width=dm.widthPixels;
-        int height=dm.heightPixels;
-        getWindow().setLayout((int) ( width*.8), (int) (height*.25));
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        getWindow().setLayout((int) (width * .8), (int) (height * .25));
 
-        back.setOnClickListener(view -> {setResult(Activity.RESULT_CANCELED, new Intent());finish();});
+        back.setOnClickListener(view -> {
+            setResult(Activity.RESULT_CANCELED, new Intent());
+            finish();
+        });
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (email.getText().toString().isEmpty()) {
-                    email.setError("Email is required");
-                    email.requestFocus();
-                    return;
-                }
-                RetrofitApiService apiService = getInstance().create(RetrofitApiService.class);
-                String accessToken = ((global) getApplication()).getAccess_token();
-                apiService.updateCardUserList(accessToken, cardid, email.getText().toString()).enqueue(new Callback<Card>() {
-                    @Override
-                    public void onResponse(Call<Card> call, Response<Card> response) {
-                            Intent resultIntent=new Intent();
-                        if (response.isSuccessful()) {
-                            Toast.makeText(popUpAddUser.this, "User hozzáadva", Toast.LENGTH_SHORT).show();
-                            setResult(Activity.RESULT_OK, resultIntent);
-                          finish();
+                    email.setError("Kérjük, adja meg az e-mail címet");
+                } else if (email.getText().toString().contains("@")) {
+                    email.setError("Az e-mail címnek tartalmaznia kell egy @ jelet");
+                } else if (Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
+                    email.setError("Kérjük, adjon meg egy helyes e-mail címet");
+                } else {
+                    RetrofitApiService apiService = getInstance().create(RetrofitApiService.class);
+                    String accessToken = ((global) getApplication()).getAccess_token();
+                    apiService.updateCardUserList(accessToken, cardid, email.getText().toString()).enqueue(new Callback<Card>() {
+                        @Override
+                        public void onResponse(Call<Card> call, Response<Card> response) {
+                            Intent resultIntent = new Intent();
+                            if (response.isSuccessful()) {
+                                Toast.makeText(popUpAddUser.this, "User hozzáadva", Toast.LENGTH_SHORT).show();
+                                setResult(Activity.RESULT_OK, resultIntent);
+                                finish();
 
-                        } else {
-                            setResult(Activity.RESULT_CANCELED, resultIntent);
-                            System.out.println(response.message());
+                            } else {
+                                setResult(Activity.RESULT_CANCELED, resultIntent);
+                                System.out.println(response.message());
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<Card> call, Throwable t) {
-                        System.out.println(t.getMessage());
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<Card> call, Throwable t) {
+                            System.out.println(t.getMessage());
+                        }
+                    });
+                }
 
             }
         });
@@ -102,10 +106,10 @@ public class popUpAddUser extends AppCompatActivity {
     /**
      * Initializes the activity by setting up the UI components.
      */
-    public void init () {
+    public void init() {
         back = findViewById(R.id.back);
         send = findViewById(R.id.send);
         email = findViewById(R.id.email);
-        cardid=getIntent().getStringExtra("cardId");
+        cardid = getIntent().getStringExtra("cardId");
     }
 }

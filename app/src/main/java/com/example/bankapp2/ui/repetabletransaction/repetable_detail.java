@@ -1,7 +1,6 @@
 package com.example.bankapp2.ui.repetabletransaction;
 
 
-
 import static com.example.bankapp2.data.connect.RetrofitClient.getInstance;
 
 import android.app.AlertDialog;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 
 import com.example.bankapp2.R;
 import com.example.bankapp2.data.connect.RetrofitApiService;
@@ -41,8 +39,8 @@ public class repetable_detail extends Fragment {
     /**
      * Called to have the fragment instantiate its user interface view.
      *
-     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment.
-     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
      * @return Return the View for the fragment's UI, or null.
      */
@@ -59,9 +57,10 @@ public class repetable_detail extends Fragment {
      * Initializes the fragment by setting up necessary data and UI components.
      */
     private void init() {
-        token= ((global) getActivity().getApplication()).getAccess_token();
+        token = ((global) getActivity().getApplication()).getAccess_token();
         repeatableTransactionId = getArguments().getString("repeatableTransactionId");
-        getRepetable();;
+        getRepetable();
+        ;
 
 
     }
@@ -104,9 +103,9 @@ public class repetable_detail extends Fragment {
         binding.datestart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(new Date().before(repeatableTransaction.getRepeatStart())){
+                if (new Date().before(repeatableTransaction.getRepeatStart())) {
                     showDatePickerDialog(binding.datestart, repeatableTransaction.getRepeatStart());
-                }else{
+                } else {
                     Toast.makeText(getContext(), "Nem tudod megváltoztatni a kezdő dátumot többé", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -123,34 +122,44 @@ public class repetable_detail extends Fragment {
         binding.save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RetrofitApiService apiService= getInstance().create(RetrofitApiService.class);
-                apiService.updateRepeatableTransaction(
-                        token,
-                        repeatableTransactionId,
-                        Double.parseDouble(binding.total.getText().toString()),
-                        binding.category.getSelectedItem().toString(),
-                        binding.description.getText().toString(),
-                        Integer.parseInt(binding.ammount.getText().toString()),
-                        binding.metrik.getSelectedItem().toString(),
-                        binding.datestart.getText().toString(),
-                        binding.dateend.getText().toString(),
-                        binding.name.getText().toString()
-                ).enqueue(new retrofit2.Callback<RepeatableTransaction>() {
-                    @Override
-                    public void onResponse(retrofit2.Call<RepeatableTransaction> call, retrofit2.Response<RepeatableTransaction> response) {
-                        if(response.isSuccessful()){
-                            Toast.makeText(getContext(), "Sikeres módosítás", Toast.LENGTH_SHORT).show();
-                            getRepetable();
-                        }else{
-                            System.out.println(response.errorBody());
+                if (binding.name.getText().toString().isEmpty()) {
+                    binding.name.setError("Must not be empty");
+                } else if (Double.parseDouble(binding.total.getText().toString()) <= 0|| binding.total.getText().toString().isEmpty()) {
+                    binding.total.setError("Must be greater than 0");
+                } else if (new Date(binding.datestart.getText().toString()).before(new Date(binding.dateend.getText().toString()))) {
+                    Toast.makeText(getContext(), "Kezdő dátum nem lehet később mint a végdátum", Toast.LENGTH_SHORT).show();
+                } else if (Integer.parseInt(binding.ammount.getText().toString()) <= 0) {
+                    Toast.makeText(getContext(), "Must be greater than 0", Toast.LENGTH_SHORT).show();
+                } else {
+                    RetrofitApiService apiService = getInstance().create(RetrofitApiService.class);
+                    apiService.updateRepeatableTransaction(
+                            token,
+                            repeatableTransactionId,
+                            Double.parseDouble(binding.total.getText().toString()),
+                            binding.category.getSelectedItem().toString(),
+                            binding.description.getText().toString(),
+                            Integer.parseInt(binding.ammount.getText().toString()),
+                            binding.metrik.getSelectedItem().toString(),
+                            binding.datestart.getText().toString(),
+                            binding.dateend.getText().toString(),
+                            binding.name.getText().toString()
+                    ).enqueue(new retrofit2.Callback<RepeatableTransaction>() {
+                        @Override
+                        public void onResponse(retrofit2.Call<RepeatableTransaction> call, retrofit2.Response<RepeatableTransaction> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(getContext(), "Sikeres módosítás", Toast.LENGTH_SHORT).show();
+                                getRepetable();
+                            } else {
+                                System.out.println(response.errorBody());
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(retrofit2.Call<RepeatableTransaction> call, Throwable t) {
-                        System.out.println(t.getMessage());
-                    }
-                });
+                        @Override
+                        public void onFailure(retrofit2.Call<RepeatableTransaction> call, Throwable t) {
+                            System.out.println(t.getMessage());
+                        }
+                    });
+                }
             }
         });
 
@@ -162,14 +171,14 @@ public class repetable_detail extends Fragment {
                 builder.setTitle("Törlés");
                 builder.setMessage("Biztosan törölni szeretnéd? (Vele törlöd az összes költséget is)");
                 builder.setPositiveButton("Igen", (dialog, which) -> {
-                    RetrofitApiService apiService= getInstance().create(RetrofitApiService.class);
+                    RetrofitApiService apiService = getInstance().create(RetrofitApiService.class);
                     apiService.deleteRepeatableTransaction(repeatableTransactionId, token).enqueue(new retrofit2.Callback<RepeatableTransaction>() {
                         @Override
                         public void onResponse(retrofit2.Call<RepeatableTransaction> call, retrofit2.Response<RepeatableTransaction> response) {
-                            if(response.isSuccessful()){
+                            if (response.isSuccessful()) {
                                 Toast.makeText(getContext(), "Sikeres törlés", Toast.LENGTH_SHORT).show();
                                 getActivity().onBackPressed();
-                            }else{
+                            } else {
                                 System.out.println(response.errorBody());
                             }
                         }
@@ -196,14 +205,14 @@ public class repetable_detail extends Fragment {
                 builder.setTitle("Leállítás");
                 builder.setMessage("Biztosan le szeretnéd állítani? (A költségek megmaradnak)");
                 builder.setPositiveButton("Igen", (dialog, which) -> {
-                    RetrofitApiService apiService= getInstance().create(RetrofitApiService.class);
+                    RetrofitApiService apiService = getInstance().create(RetrofitApiService.class);
                     apiService.stopRepeatableTransaction(repeatableTransactionId, token).enqueue(new retrofit2.Callback<RepeatableTransaction>() {
                         @Override
                         public void onResponse(retrofit2.Call<RepeatableTransaction> call, retrofit2.Response<RepeatableTransaction> response) {
-                            if(response.isSuccessful()){
+                            if (response.isSuccessful()) {
                                 Toast.makeText(getContext(), "Sikeres törlés", Toast.LENGTH_SHORT).show();
                                 getActivity().onBackPressed();
-                            }else{
+                            } else {
                                 System.out.println(response.errorBody());
                             }
                         }
@@ -226,7 +235,7 @@ public class repetable_detail extends Fragment {
     /**
      * Shows a date picker dialog to select a date.
      *
-     * @param date The TextView to display the selected date.
+     * @param date  The TextView to display the selected date.
      * @param date1 The initial date to be displayed in the date picker.
      */
     private void showDatePickerDialog(TextView date, Date date1) {
@@ -239,12 +248,8 @@ public class repetable_detail extends Fragment {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 this.getContext(),
                 (view, year1, month1, dayOfMonth) -> {
-                    String formattedDate = "";
-                    if (month1 < 9) {
-                        formattedDate = year1 + "-0" + (month1 + 1) + "-" + dayOfMonth;
-                    } else {
-                        formattedDate = year1 + "-" + (month1 + 1) + "-" + dayOfMonth;
-                    }
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String formattedDate = dateFormat.format(new Date(year1, month1, dayOfMonth));
                     date.setText(formattedDate);
                 },
                 year, month, day);
@@ -262,7 +267,7 @@ public class repetable_detail extends Fragment {
                 if (response.isSuccessful()) {
                     repeatableTransaction = response.body();
                     updateUI();
-                }else{
+                } else {
                     System.out.println(response.errorBody());
                 }
             }

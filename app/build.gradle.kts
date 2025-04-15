@@ -5,7 +5,6 @@ import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
     alias(libs.plugins.android.application)
-    kotlin("android") version "1.8.22"
     id("org.jetbrains.dokka")
 }
 
@@ -56,11 +55,16 @@ tasks.findByName("dokkaHtml") ?: tasks.register<DokkaTask>("dokkaHtml") {
     }
 }
 
-tasks.findByName("javadoc") ?: tasks.register("javadoc", Javadoc::class) {
-    val mainSourceSet = android.sourceSets.getByName("main")
-    source = project.files(mainSourceSet.java.srcDirs).asFileTree
-    classpath = files(android.bootClasspath) + files(mainSourceSet.java.srcDirs)
-    isFailOnError=false
+tasks.findByName("javadoc") ?: tasks.register<Javadoc>("javadoc") {
+    val javaDirs = fileTree("src/main/java").asFileTree
+
+    source = javaDirs
+    classpath = files(android.bootClasspath)
+    isFailOnError = false
+    group = "documentation"
+    description = "Generates JavaDoc for Java sources."
+
+    (options as StandardJavadocDocletOptions).encoding = "UTF-8"
 }
 
 
@@ -81,7 +85,7 @@ dependencies {
     implementation(libs.activity)
     testImplementation(libs.junit)
     androidTestImplementation (libs.junit.v115)
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.6.1")
     implementation(libs.okhttp)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)

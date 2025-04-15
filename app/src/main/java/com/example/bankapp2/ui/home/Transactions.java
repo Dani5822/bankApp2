@@ -16,7 +16,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-
 import com.example.bankapp2.R;
 import com.example.bankapp2.data.connect.RetrofitApiService;
 import com.example.bankapp2.data.connect.RetrofitClient;
@@ -81,22 +80,22 @@ public class Transactions extends AppCompatActivity {
         binding.radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             updateSpinner();
             if (checkedId == R.id.expense) {
-                binding.content.setVisibility(binding.content.VISIBLE);
-                binding.repeatlayout.setVisibility(binding.repeat.VISIBLE);
-                binding.transferLayout.setVisibility(binding.transferLayout.GONE);
+                binding.content.setVisibility(View.VISIBLE);
+                binding.repeatlayout.setVisibility(View.VISIBLE);
+                binding.transferLayout.setVisibility(View.GONE);
                 if (binding.repeat.isChecked()) {
-                    binding.repeatexpense.setVisibility(binding.repeatexpense.VISIBLE);
+                    binding.repeatexpense.setVisibility(View.VISIBLE);
                 } else {
-                    binding.repeatexpense.setVisibility(binding.repeatexpense.GONE);
+                    binding.repeatexpense.setVisibility(View.GONE);
                 }
-            } else if(checkedId == R.id.income){
-                binding.content.setVisibility(binding.content.VISIBLE);
-                binding.repeatlayout.setVisibility(binding.repeat.GONE);
-                binding.repeatexpense.setVisibility(binding.repeatexpense.GONE);
-                binding.transferLayout.setVisibility(binding.transferLayout.GONE);
-            }else{
-                binding.content.setVisibility(binding.content.GONE);
-                binding.transferLayout.setVisibility(binding.transferLayout.VISIBLE);
+            } else if (checkedId == R.id.income) {
+                binding.content.setVisibility(View.VISIBLE);
+                binding.repeatlayout.setVisibility(View.GONE);
+                binding.repeatexpense.setVisibility(View.GONE);
+                binding.transferLayout.setVisibility(View.GONE);
+            } else {
+                binding.content.setVisibility(View.GONE);
+                binding.transferLayout.setVisibility(View.VISIBLE);
 
             }
         });
@@ -127,9 +126,9 @@ public class Transactions extends AppCompatActivity {
 
         binding.repeat.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                binding.repeatexpense.setVisibility(binding.repeatexpense.VISIBLE);
+                binding.repeatexpense.setVisibility(View.VISIBLE);
             } else {
-                binding.repeatexpense.setVisibility(binding.repeatexpense.GONE);
+                binding.repeatexpense.setVisibility(View.GONE);
             }
         });
 
@@ -167,14 +166,16 @@ public class Transactions extends AppCompatActivity {
                 binding.loading.setVisibility(View.GONE);
                 return;
             } else if (binding.total.getText().toString().isEmpty()) {
-                binding.error.setText("Please enter an amount");
+                binding.error.setText("");
+                binding.total.setError("Please enter a valid amount");
                 binding.loading.setVisibility(View.GONE);
                 return;
-            } else if (Integer.parseInt(binding.total.getText().toString())<=0){
-                binding.error.setText("Please enter a valid amount");
+            } else if (Integer.parseInt(binding.total.getText().toString()) <= 0) {
+                binding.error.setText("");
+                binding.total.setError("Total must be greater than 0");
                 binding.loading.setVisibility(View.GONE);
                 return;
-            }else {
+            } else {
                 binding.error.setText("");
             }
             RetrofitApiService apiService = RetrofitClient.getInstance().create(RetrofitApiService.class);
@@ -204,7 +205,7 @@ public class Transactions extends AppCompatActivity {
                         binding.loading.setVisibility(View.GONE);
                     }
                 });
-            } else if(binding.radioGroup.getCheckedRadioButtonId() == R.id.expense){
+            } else if (binding.radioGroup.getCheckedRadioButtonId() == R.id.expense) {
                 if (binding.repeat.isChecked()) {
                     if (Integer.valueOf(binding.ammount.getText().toString()) <= 0) {
                         System.out.println(Integer.valueOf(binding.ammount.getText().toString()));
@@ -213,16 +214,19 @@ public class Transactions extends AppCompatActivity {
                     } else if (Date.valueOf(binding.datestart.getText().toString()).compareTo(Date.valueOf(binding.datened.getText().toString())) > 0) {
                         binding.error.setText("Start date must be before end date");
                         binding.loading.setVisibility(View.GONE);
+                    } else if (binding.name.getText().equals("") || binding.name.getText().equals(null)) {
+                        binding.name.setError("Must give a name");
+                        binding.error.setText("");
+                        binding.loading.setVisibility(View.GONE);
                     } else {
 
-                        apiService.createRepeatableTransaction(accessToken, Double.valueOf(binding.total.getText().toString()),binding.category.getSelectedItem().toString(),binding.description.getText().toString(),cardId,Integer.valueOf(binding.ammount.getText().toString()),binding.metrik.getSelectedItem().toString(),binding.datestart.getText().toString(),binding.datened.getText().toString(),userId,binding.name.getText().toString()).enqueue(new Callback<RepeatableTransaction>() {
+                        apiService.createRepeatableTransaction(accessToken, Double.valueOf(binding.total.getText().toString()), binding.category.getSelectedItem().toString(), binding.description.getText().toString(), cardId, Integer.valueOf(binding.ammount.getText().toString()), binding.metrik.getSelectedItem().toString(), binding.datestart.getText().toString(), binding.datened.getText().toString(), userId, binding.name.getText().toString()).enqueue(new Callback<RepeatableTransaction>() {
                             @Override
                             public void onResponse(Call<RepeatableTransaction> call, Response<RepeatableTransaction> response) {
-                                if(response.isSuccessful()){
+                                if (response.isSuccessful()) {
                                     setResult(Activity.RESULT_OK, new Intent());
                                     finish();
-                                }
-                                else{
+                                } else {
                                     System.out.println(response.message());
                                     binding.error.setText("Error");
                                     binding.loading.setVisibility(View.GONE);
@@ -260,15 +264,22 @@ public class Transactions extends AppCompatActivity {
                     });
 
                 }
-            }else{
-                apiService.createTransfer(accessToken, Double.valueOf(binding.total.getText().toString()),binding.szamlaszam.getText().toString(),cardId,userId).enqueue(new Callback<Card>() {
+            } else {
+                if (binding.szamlaszam.getText().toString().isEmpty()) {
+                    binding.szamlaszam.setError("Please enter a valid account number");
+                    binding.error.setText("");
+                    binding.loading.setVisibility(View.GONE);
+                    return;
+                } else {
+                    binding.error.setText("");
+                }
+                apiService.createTransfer(accessToken, Double.valueOf(binding.total.getText().toString()), binding.szamlaszam.getText().toString(), cardId, userId).enqueue(new Callback<Card>() {
                     @Override
                     public void onResponse(Call<Card> call, Response<Card> response) {
-                        if(response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             setResult(Activity.RESULT_OK, new Intent());
                             finish();
-                        }
-                        else{
+                        } else {
                             System.out.println(response.message());
                             binding.error.setText("Error");
                             binding.loading.setVisibility(View.GONE);
